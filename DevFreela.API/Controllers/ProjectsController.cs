@@ -1,10 +1,10 @@
-﻿using DevFreela.API.Entities;
-using DevFreela.API.Models;
-using DevFreela.API.Persistence;
-using DevFreela.API.Services;
+﻿using DevFreela.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using DevFreela.Infrastructure.Persistence;
+using DevFreela.Application.Models;
+using DevFreela.Application.Services;
 
 namespace DevFreela.API.Controllers
 {
@@ -13,9 +13,11 @@ namespace DevFreela.API.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly DevFreelaDbContext _context;
-        public ProjectsController(DevFreelaDbContext context)
+        private readonly IProjectService _projectService;
+
+        public ProjectsController(IProjectService projectService)
         {
-            _context = context;
+            _projectService = projectService;
         }
 
         // GET api/projects?search=crm
