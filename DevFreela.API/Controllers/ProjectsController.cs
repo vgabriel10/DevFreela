@@ -25,7 +25,7 @@ namespace DevFreela.API.Controllers
 
         // GET api/projects?search=crm
         [HttpGet]
-        public async Task<IActionResult> Get(string search = "", int page = 0, int size = 3)
+        public async Task<IActionResult> Get(string search = "", int page = 0, int size = 20)
         {
             var query = new GetAllProjectsQuery(search,page,size);
             var result = await _mediator.Send(query);
