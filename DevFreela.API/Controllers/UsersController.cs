@@ -60,5 +60,11 @@ namespace DevFreela.API.Controllers
 
             return Ok(description);
         }
+
+        [HttpPost("{id}/login")]
+        public IActionResult Login(int id, [FromBody] LoginInputModel model)
+        {
+            return NoContent();
+        }
     }
 }
