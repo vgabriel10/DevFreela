@@ -1,5 +1,6 @@
 ﻿using DevFreela.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace DevFreela.Infrastructure.Persistence
 {
@@ -20,67 +21,7 @@ namespace DevFreela.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            builder
-                .Entity<Skill>(e =>
-                {
-                    e.HasKey(s => s.Id);
-                });
-
-            builder
-                .Entity<UserSkill>(e =>
-                {
-                    e.HasKey(us => us.Id);
-
-                    e.HasOne(u => u.Skill)
-                        .WithMany(u => u.UserSkills)
-                        .HasForeignKey(s => s.IdSkill)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            builder
-                .Entity<ProjectComment>(e =>
-                {
-                    e.HasKey(p => p.Id);
-
-                    e.HasOne(p => p.Project)
-                        .WithMany(p => p.Comments)
-                        .HasForeignKey(p => p.IdProject)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    e.HasOne(p => p.User)
-                        .WithMany(u => u.Comments)
-                        .HasForeignKey(p => p.IdUser)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            builder
-                .Entity<User>(e =>
-                {
-                    e.HasKey(us => us.Id);
-
-                    e.HasMany(u => u.Skills)
-                        .WithOne(us => us.User)
-                        .HasForeignKey(us => us.IdUser)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            builder
-                .Entity<Project>(e =>
-                {
-                    e.HasKey(us => us.Id);
-
-                    e.HasOne(p => p.Freelancer)
-                        .WithMany(f => f.FreelanceProjects)
-                        .HasForeignKey(p => p.IdFreelancer)
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    e.HasOne(p => p.Client)
-                        .WithMany(c => c.OwnedProjects)
-                        .HasForeignKey(p => p.IdCliente)
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
         }
