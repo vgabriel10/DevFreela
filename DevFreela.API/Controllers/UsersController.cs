@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Application.Models;
+using DevFreela.Application.Commands.CreateUser;
+using MediatR;
+using DevFreela.Application.Commands.LoginUser;
 
 namespace DevFreela.API.Controllers
 {
@@ -11,10 +14,12 @@ namespace DevFreela.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DevFreelaDbContext _context;
+        private readonly IMediator _mediator;
 
-        public UsersController(DevFreelaDbContext context)
+        public UsersController(DevFreelaDbContext context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;
         }
 
         [HttpGet("{id}")]
@@ -34,12 +39,11 @@ namespace DevFreela.API.Controllers
 
         // POST api/users
         [HttpPost]
-        public IActionResult Post(CreateUserInputModel model)
+        public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
-            var user = new User(model.FullName, model.Email, model.BirthDate, model.Password,model.Role);
-            _context.Users.Add(user);
-            _context.SaveChanges();
-            return Ok();
+            var id = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { id = id }, command);
         }
 
         [HttpPost("{id}/skills")]
@@ -61,10 +65,15 @@ namespace DevFreela.API.Controllers
             return Ok(description);
         }
 
-        [HttpPost("{id}/login")]
-        public IActionResult Login(int id, [FromBody] LoginInputModel model)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
-            return NoContent();
+            var loginUserViewModel = await _mediator.Send(command);
+
+            if (loginUserViewModel is null) 
+                return BadRequest();
+
+            return Ok(loginUserViewModel);
         }
     }
 }
