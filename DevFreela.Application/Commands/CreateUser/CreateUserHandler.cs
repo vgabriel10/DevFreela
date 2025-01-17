@@ -29,4 +29,4 @@ namespace DevFreela.Application.Commands.CreateUser
         }
     }
 }
-}
+

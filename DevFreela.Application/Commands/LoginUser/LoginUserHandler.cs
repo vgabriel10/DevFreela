@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace DevFreela.Application.Commands.LoginUser
 {
-    public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
+    public class LoginUserHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
     {
         private readonly IAuthService _authService;
         private readonly IUserRepository _userRepository;
-        public LoginUserCommandHandler(IAuthService authService, IUserRepository userRepository)
+        public LoginUserHandler(IAuthService authService, IUserRepository userRepository)
         {
             _authService = authService;
             _userRepository = userRepository;
