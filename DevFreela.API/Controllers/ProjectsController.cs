@@ -9,11 +9,13 @@ using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Application.Commands.StartProject;
 using DevFreela.Application.Commands.CompleteProject;
 using DevFreela.Application.Commands.InsertComment;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevFreela.API.Controllers
 {
     [ApiController]
     [Route("api/projects")]
+    [Authorize]
     public class ProjectsController : ControllerBase
     {
         private readonly IMediator _mediator;
