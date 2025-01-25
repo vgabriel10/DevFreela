@@ -20,6 +20,12 @@ namespace DevFreela.Application.Models
         public decimal TotalCost { get; private set; }
 
         public static ProjectItemViewModel FromEntity(Project project)
-            => new(project.Id, project.Title, project.Client.FullName, project.Freelancer.FullName, project.TotalCost);
+        => new(
+            project.Id,
+            project.Title,
+            project.Client?.FullName ?? "Cliente não informado",
+            project.Freelancer?.FullName ?? "Freelancer não informado",
+            project.TotalCost
+        );
     }
 }
