@@ -1,4 +1,4 @@
-﻿using DevFreela.Application.Commands.InsertProject;
+﻿using DevFreela.Application.Commands.ProjectCommands.InsertProject;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

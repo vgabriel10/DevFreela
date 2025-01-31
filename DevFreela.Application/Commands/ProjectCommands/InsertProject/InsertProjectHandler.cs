@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevFreela.Application.Commands.InsertProject
+namespace DevFreela.Application.Commands.ProjectCommands.InsertProject
 {
-    public class InsertProjectHandler : IRequestHandler<InsertProjectCommand,ResultViewModel<int>>
+    public class InsertProjectHandler : IRequestHandler<InsertProjectCommand, ResultViewModel<int>>
     {
         private readonly IProjectRepository _repository;
         private readonly IMediator _mediator;

@@ -1,11 +1,11 @@
-﻿using DevFreela.Application.Commands.CompleteProject;
+﻿using DevFreela.Application.Commands.ProjectCommands.CompleteProject;
 using DevFreela.Application.Models;
 using DevFreela.Core.Repositories;
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevFreela.Application.Commands.StartProject
+namespace DevFreela.Application.Commands.ProjectCommands.StartProject
 {
     public class StartProjectHandler : IRequestHandler<StartProjectCommand, ResultViewModel>
     {

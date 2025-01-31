@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevFreela.Application.Commands.StartProject
+namespace DevFreela.Application.Commands.ProjectCommands.DeleteProject
 {
-    public class StartProjectCommand : IRequest<ResultViewModel>
+    public class DeleteProjectCommand : IRequest<ResultViewModel>
     {
-        public StartProjectCommand(int id)
+        public DeleteProjectCommand(int id)
         {
             Id = id;
         }
