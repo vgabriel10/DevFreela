@@ -4,7 +4,7 @@ using DevFreela.Infrastructure.Persistence;
 using MediatR;
 
 
-namespace DevFreela.Application.Commands.CreateUser
+namespace DevFreela.Application.Commands.UserCommands.CreateUser
 {
     public class CreateUserHandler : IRequestHandler<CreateUserCommand, int>
     {

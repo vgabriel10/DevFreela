@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevFreela.Application.Commands.LoginUser
+namespace DevFreela.Application.Commands.UserCommands.LoginUser
 {
     public class LoginUserCommand : IRequest<LoginUserViewModel>
     {

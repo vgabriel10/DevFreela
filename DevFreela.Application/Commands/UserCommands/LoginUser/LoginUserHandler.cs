@@ -2,13 +2,9 @@
 using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DevFreela.Application.Commands.LoginUser
+
+namespace DevFreela.Application.Commands.UserCommands.LoginUser
 {
     public class LoginUserHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
     {

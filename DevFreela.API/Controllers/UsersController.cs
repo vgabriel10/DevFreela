@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Application.Models;
-using DevFreela.Application.Commands.CreateUser;
+using DevFreela.Application.Commands.UserCommands.CreateUser;
 using MediatR;
-using DevFreela.Application.Commands.LoginUser;
+using DevFreela.Application.Commands.UserCommands.LoginUser;
 using Microsoft.AspNetCore.Authorization;
 
 namespace DevFreela.API.Controllers

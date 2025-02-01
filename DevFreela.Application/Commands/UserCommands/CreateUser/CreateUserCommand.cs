@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevFreela.Application.Commands.CreateUser
+namespace DevFreela.Application.Commands.UserCommands.CreateUser
 {
     public class CreateUserCommand : IRequest<int>
     {
