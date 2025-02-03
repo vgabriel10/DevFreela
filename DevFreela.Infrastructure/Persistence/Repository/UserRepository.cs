@@ -18,7 +18,10 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+            return await _dbContext.Users
+                .Include(u => u.Skills)
+                    .ThenInclude(u => u.Skill)
+                .SingleOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)

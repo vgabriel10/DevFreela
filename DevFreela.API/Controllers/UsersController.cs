@@ -7,6 +7,7 @@ using DevFreela.Application.Commands.UserCommands.CreateUser;
 using MediatR;
 using DevFreela.Application.Commands.UserCommands.LoginUser;
 using Microsoft.AspNetCore.Authorization;
+using DevFreela.Application.Queries.UserQuerties.GetUserById;
 
 namespace DevFreela.API.Controllers
 {
@@ -25,18 +26,13 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var user = _context.Users
-                .Include(u => u.Skills)
-                    .ThenInclude(u => u.Skill)
-                .SingleOrDefault(u => u.Id == id);
-
-            if (user is null)
+            var user = await _mediator.Send(new GetUserByIdQuery(id));
+            if(user is null)
                 return NotFound();
 
-            var model = UserViewModel.FromEntity(user);
-            return Ok(model);
+            return Ok(user);
         }
 
         // POST api/users
