@@ -8,6 +8,7 @@ using MediatR;
 using DevFreela.Application.Commands.UserCommands.LoginUser;
 using Microsoft.AspNetCore.Authorization;
 using DevFreela.Application.Queries.UserQuerties.GetUserById;
+using DevFreela.Application.Commands.UserCommands.InsertUserSkill;
 
 namespace DevFreela.API.Controllers
 {
@@ -46,11 +47,14 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost("{id}/skills")]
-        public IActionResult PostSkills(int id,UserSkillsInputModel model)
+        [Authorize(Roles = "freelancer")]
+        public async Task<IActionResult> PostSkills(int id, InsertUserSkillCommand command)
         {
-            var userSkills = model.SkillIds.Select(s => new UserSkill(id, s)).ToList();
-            _context.AddRange(userSkills);
-            _context.SaveChanges();
+            var result = await _mediator.Send(command);
+
+            if(result is null)
+                return BadRequest();
+
             return NoContent();
         }
 
