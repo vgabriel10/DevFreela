@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace DevFreela.Infrastructure
 {
     public static class InfrastructureModule
@@ -17,7 +18,8 @@ namespace DevFreela.Infrastructure
             services
                 .AddRepositories()
                 .AddData(configuration)
-                .AddAutentication();
+                .AddAutentication()
+                .AddHttpClients();
             
             return services;
         }
@@ -42,6 +44,12 @@ namespace DevFreela.Infrastructure
         {
             services.AddScoped<IAuthService, AuthService>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddHttpClients(this IServiceCollection services)
+        {
+            services.AddHttpClient();
             return services;
         }
     }
