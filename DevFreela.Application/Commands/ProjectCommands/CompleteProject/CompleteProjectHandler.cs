@@ -26,9 +26,10 @@ namespace DevFreela.Application.Commands.ProjectCommands.CompleteProject
 
             var paymentInfoDto = new PaymentInfoInputModel(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, project.TotalCost);
             var paymentInfo = PaymentInfoInputModel.FromEntity(paymentInfoDto);
-            await _paymentService.ProcessPayment(paymentInfo);
+            var result = await _paymentService.ProcessPayment(paymentInfo);
 
-            project.SetPaymentPending();
+            if(!result)
+                project.SetPaymentPending();
 
             await _repository.Update(project);
 
