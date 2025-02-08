@@ -100,17 +100,29 @@ namespace DevFreela.API.Controllers
             return NoContent();
         }
 
-        // PUT api/projects/1234/complete
+        //// Antigo
+        //[HttpPut("{id}/complete")]
+        //[Authorize(Roles = "client")]
+        //public async Task<IActionResult> Complete(int id)
+        //{
+        //    var result = await _mediator.Send(new CompleteProjectCommand(id));
+
+        //    if (!result.IsSucess)
+        //        return BadRequest(result.Message);
+
+        //    return NoContent();
+        //}
+
         [HttpPut("{id}/complete")]
         [Authorize(Roles = "client")]
-        public async Task<IActionResult> Complete(int id)
+        public async Task<IActionResult> Complete(int id, CompleteProjectCommand command)
         {
-            var result = await _mediator.Send(new CompleteProjectCommand(id));
+            var result = await _mediator.Send(command);
 
             if (!result.IsSucess)
                 return BadRequest(result.Message);
 
-            return NoContent();
+            return Accepted();
         }
 
         // POST api/projects/1234/comments

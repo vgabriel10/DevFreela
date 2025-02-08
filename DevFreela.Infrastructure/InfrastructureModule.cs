@@ -1,6 +1,7 @@
 ﻿using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
 using DevFreela.Infrastructure.AuthServices;
+using DevFreela.Infrastructure.Payments;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Infrastructure.Persistence.Repositories;
 using DevFreela.Infrastructure.Persistence.Repository;
@@ -16,6 +17,7 @@ namespace DevFreela.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services
+                .AddServices()
                 .AddRepositories()
                 .AddData(configuration)
                 .AddAutentication()
@@ -29,6 +31,12 @@ namespace DevFreela.Infrastructure
             var connectionString = configuration.GetConnectionString("DevFreelaCs");
             services.AddDbContext<DevFreelaDbContext>(o => o.UseSqlServer(connectionString));
 
+            return services;
+        }
+
+        public static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            services.AddScoped<IPaymentlService, PaymentService>();
             return services;
         }
 

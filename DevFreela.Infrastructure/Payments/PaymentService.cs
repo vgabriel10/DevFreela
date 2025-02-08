@@ -17,7 +17,7 @@ namespace DevFreela.Infrastructure.Payments
             _paymentsBaseUrl = configuration.GetSection("Services:Payments").Value;
         }
 
-        public async Task<bool> ProcessPayament(PaymentInfo paymentInfoInputModel)
+        public async Task<bool> ProcessPayment(PaymentInfo paymentInfoInputModel)
         {
             var url = $"{_paymentsBaseUrl}/api/payments";
 
