@@ -1,6 +1,7 @@
 ﻿using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
 using DevFreela.Infrastructure.AuthServices;
+using DevFreela.Infrastructure.MessageBus;
 using DevFreela.Infrastructure.Payments;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Infrastructure.Persistence.Repositories;
@@ -21,7 +22,8 @@ namespace DevFreela.Infrastructure
                 .AddRepositories()
                 .AddData(configuration)
                 .AddAutentication()
-                .AddHttpClients();
+                .AddHttpClients()
+                .AddMessageBus();
             
             return services;
         }
@@ -58,6 +60,12 @@ namespace DevFreela.Infrastructure
         public static IServiceCollection AddHttpClients(this IServiceCollection services)
         {
             services.AddHttpClient();
+            return services;
+        }
+
+        public static IServiceCollection AddMessageBus(this IServiceCollection services)
+        {
+            services.AddScoped<IMessageBusService, MessageBusService>();
             return services;
         }
     }
