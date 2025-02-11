@@ -22,9 +22,12 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
             return skill.Id;
         }
 
-        public async Task<List<Skill>> GetAllAsync()
+        public async Task<List<Skill>> GetAllAsync(int page, int size)
         {
-            return await _context.Skills.ToListAsync();
+            return await _context.Skills
+                .Skip(page * size)
+                .Take(size)
+                .ToListAsync();
         }
 
             

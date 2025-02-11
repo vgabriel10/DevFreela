@@ -5,6 +5,7 @@ using DevFreela.Infrastructure.Persistence;
 using DevFreela.Application.Models;
 using MediatR;
 using DevFreela.Application.Commands.SkillCommands.CreateSkill;
+using DevFreela.Application.Queries.SkillQueries.GetAllSkills;
 
 namespace DevFreela.API.Controllers
 {
@@ -22,10 +23,11 @@ namespace DevFreela.API.Controllers
         }
         // GET api/skills
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int page = 0, [FromQuery] int size = 20)
         {
-            var skills = _context.Skills.ToList();
-            return Ok(skills);
+            var query = new GetAllSkillQuery(page,size);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         // POST api/skills
