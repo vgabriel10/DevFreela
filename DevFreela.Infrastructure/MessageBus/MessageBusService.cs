@@ -16,7 +16,7 @@ namespace DevFreela.Infrastructure.MessageBus
                 HostName = "localhost",
             };
         }
-        public async void Publish(string queue, byte[] message)
+        public void Publish(string queue, byte[] message)
         {
             using (var connection = _factory.CreateConnection())
             {

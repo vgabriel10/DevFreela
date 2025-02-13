@@ -15,6 +15,7 @@ namespace DevFreela.Application.Commands.ProjectCommands.CompleteProject
             _repository = repository;
             _paymentService = paymentlService;
         }
+
         public async Task<ResultViewModel> Handle(CompleteProjectCommand request, CancellationToken cancellationToken)
         {
             var project = await _repository.GetById(request.Id);
@@ -22,18 +23,36 @@ namespace DevFreela.Application.Commands.ProjectCommands.CompleteProject
             if (project is null)
                 return ResultViewModel.Error("Projeto não existe!");
 
-            project.Completed();
-
             var paymentInfoDto = new PaymentInfoInputModel(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, project.TotalCost);
             var paymentInfo = PaymentInfoInputModel.FromEntity(paymentInfoDto);
-            var result = await _paymentService.ProcessPayment(paymentInfo);
+            _paymentService.ProcessPayment(paymentInfo);
 
-            if(!result)
-                project.SetPaymentPending();
+            project.SetPaymentPending();
 
             await _repository.Update(project);
 
             return ResultViewModel.Sucess();
         }
+
+        //public async Task<ResultViewModel> Handle(CompleteProjectCommand request, CancellationToken cancellationToken)
+        //{
+        //    var project = await _repository.GetById(request.Id);
+
+        //    if (project is null)
+        //        return ResultViewModel.Error("Projeto não existe!");
+
+        //    project.Completed();
+
+        //    var paymentInfoDto = new PaymentInfoInputModel(request.Id, request.CreditCardNumber, request.Cvv, request.ExpiresAt, request.FullName, project.TotalCost);
+        //    var paymentInfo = PaymentInfoInputModel.FromEntity(paymentInfoDto);
+        //    var result = await _paymentService.ProcessPayment(paymentInfo);
+
+        //    if(!result)
+        //        project.SetPaymentPending();
+
+        //    await _repository.Update(project);
+
+        //    return ResultViewModel.Sucess();
+        //}
     }
 }
