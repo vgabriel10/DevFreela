@@ -3,7 +3,7 @@ using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
 using Moq;
 
-namespace DevFreela.UnitTests.Application.Queries
+namespace DevFreela.UnitTests.Application.Queries.ProjectQueries
 {
     public class GetAllProjectsQueryHandlerTests
     {
@@ -28,7 +28,7 @@ namespace DevFreela.UnitTests.Application.Queries
             .Setup(pr => pr.GetAll(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
             .ReturnsAsync(projects);
 
-            var getAllProjectsQuery = new GetAllProjectsQuery("",0,0);
+            var getAllProjectsQuery = new GetAllProjectsQuery("", 0, 0);
             var getAllProjectsQueryHandler = new GetAllProjectsHandler(projectRepositoryMock.Object);
 
             // Act
@@ -37,7 +37,7 @@ namespace DevFreela.UnitTests.Application.Queries
             // Assert
             Assert.NotNull(projectViewModelList);
             Assert.NotEmpty(projectViewModelList.Data);
-            Assert.Equal(projects.Count,projectViewModelList?.Data?.Count);
+            Assert.Equal(projects.Count, projectViewModelList?.Data?.Count);
 
             projectRepositoryMock
                 .Verify(pr => pr.GetAll("", 0, 0).Result, Times.Once);
