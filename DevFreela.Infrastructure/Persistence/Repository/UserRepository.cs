@@ -30,5 +30,11 @@ namespace DevFreela.Infrastructure.Persistence.Repositories
                 .Users
                 .SingleOrDefaultAsync(u => u.Email == email && u.Password == passwordHash);
         }
+
+        public async Task InsertUserSkill(UserSkill userSkill)
+        {
+            await _dbContext.AddAsync(userSkill);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
