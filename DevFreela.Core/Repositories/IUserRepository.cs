@@ -1,8 +1,4 @@
 ﻿using DevFreela.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevFreela.Core.Repositories
 {
@@ -11,5 +7,6 @@ namespace DevFreela.Core.Repositories
         Task<User> GetByIdAsync(int id);
         Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash);
         Task InsertUserSkill(UserSkill userSkill);
+        Task<int> CreateUser(User user);
     }
 }
