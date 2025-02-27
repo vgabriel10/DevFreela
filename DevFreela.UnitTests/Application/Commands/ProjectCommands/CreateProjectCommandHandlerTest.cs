@@ -4,9 +4,9 @@ using DevFreela.Core.Repositories;
 using MediatR;
 using Moq;
 
-namespace DevFreela.UnitTests.Application.Commands
+namespace DevFreela.UnitTests.Application.Commands.ProjectCommands
 {
-    
+
     public class CreateProjectCommandHandlerTest
     {
         [Fact]
@@ -27,7 +27,7 @@ namespace DevFreela.UnitTests.Application.Commands
             var createdProjectCommandHandler = new InsertProjectHandler(projectRepositoryMock.Object, mediatorMock.Object);
 
             // Act
-            var id = await createdProjectCommandHandler.Handle(createdProjectCommand,new CancellationToken());
+            var id = await createdProjectCommandHandler.Handle(createdProjectCommand, new CancellationToken());
 
             // Assert
             Assert.True(id.Data >= 0);
