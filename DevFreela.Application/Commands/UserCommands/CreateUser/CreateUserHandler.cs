@@ -1,4 +1,5 @@
-﻿using DevFreela.Core.Entities;
+﻿using DevFreela.Application.Models;
+using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
 using DevFreela.Infrastructure.Persistence;
@@ -7,7 +8,7 @@ using MediatR;
 
 namespace DevFreela.Application.Commands.UserCommands.CreateUser
 {
-    public class CreateUserHandler : IRequestHandler<CreateUserCommand, int>
+    public class CreateUserHandler : IRequestHandler<CreateUserCommand, ResultViewModel<int>>
     {
         private readonly IUserRepository _repository;
         private readonly IAuthService _authService;
@@ -17,7 +18,7 @@ namespace DevFreela.Application.Commands.UserCommands.CreateUser
             _authService = authService;
         }
 
-        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel<int>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var passwordHash = _authService.ComputeSha256Hash(request.Password);
 
@@ -25,7 +26,7 @@ namespace DevFreela.Application.Commands.UserCommands.CreateUser
 
             var userId = await _repository.CreateUser(user);
 
-            return userId;
+            return ResultViewModel<int>.Sucess(userId);
         }
     }
 }
