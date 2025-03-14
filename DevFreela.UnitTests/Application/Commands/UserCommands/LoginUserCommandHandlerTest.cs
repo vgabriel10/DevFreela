@@ -41,7 +41,12 @@ namespace DevFreela.UnitTests.Application.Commands.UserCommands
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equals(result.Email, email);
+            Assert.Equal(result.Email, email);
+            Assert.Equal(result.Token, token);
+
+            authServiceMock.Verify(a => a.ComputeSha256Hash(It.IsAny<string>()), Times.Once());
+            userRepositoryMock.Verify(ur => ur.GetUserByEmailAndPasswordAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once());
+            authServiceMock.Verify(a => a.GenerateJwtToken(It.IsAny<string>(), It.IsAny<string>()), Times.Once());
 
 
         }
